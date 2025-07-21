@@ -1,0 +1,52 @@
+{
+  "type": "module",
+  "name": "hackatrip",
+  "version": "1.0.0",
+  "description": "Proyecto que trata sobre una agencia de viajes online para gente que viaja sin acompañamiento y quiere conocer otros países en grupo, a su vez que conoce gente, o viajar con un grupo de amigos. En cada viaje, hay una figura de coordinador que acompaña al grupo de viajeros, proporcionando control del viaje y facilidades a los usuarios del servicio.",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon ./app.js",
+    "initDb": "node ./src/db/initDb.js"
+  },
+  "keywords": [],
+  "authors": [
+    {
+      "name": "Cristina Ufenast Sierra"
+    },
+    {
+      "name": "Brais Bernárdez Eiján"
+    },
+    {
+      "name": "Rubén Muñoz Pareja"
+    },
+    {
+      "name": "Eneko Celestino Pérez"
+    },
+    {
+      "name": "Sara Gonzalez"
+    },
+    {
+      "name": "Francisco Jimenez Criado"
+    }
+  ],
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^9.0.0",
+    "nodemon": "^3.1.0",
+    "prettier": "^3.2.5"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-fileupload": "^1.5.0",
+    "joi": "^17.12.3",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
+    "mysql2": "^3.9.6",
+    "nodemailer": "^6.9.13",
+    "randomstring": "^1.3.0",
+    "sharp": "^0.33.3"
+  }
+}
