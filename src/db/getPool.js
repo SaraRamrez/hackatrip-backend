@@ -5,6 +5,7 @@ import { MYSQL_HOST, MYSQL_USER, MYSQL_PASS, MYSQL_DB } from '../../env.js';
 let pool;
 
 const getPool = async () => {
+
     try {
         if (!pool) {
             const tempPool = await mysql.createPool({
@@ -12,8 +13,9 @@ const getPool = async () => {
                 user: MYSQL_USER,
                 password: MYSQL_PASS,
             });
-
+            
             await tempPool.query(`CREATE DATABASE IF NOT EXISTS ${MYSQL_DB}`);
+            console.log(pool);
 
             pool = await mysql.createPool({
                 host: MYSQL_HOST,
