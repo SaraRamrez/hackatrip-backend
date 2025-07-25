@@ -21,7 +21,16 @@ app.use(express.json());
 
 app.use(fileUpload());
 
-app.use(express.static(UPLOADS_DIR));
+// app.use(express.static(UPLOADS_DIR));
+
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Esto es necesario si estás usando ESModules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(cors());
 
