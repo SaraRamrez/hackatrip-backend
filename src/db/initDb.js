@@ -16,9 +16,21 @@ const createTables = async () => {
         const pool = getPool();
 
         console.log('Dropping tables...');
-        await pool.query(`
-            DROP TABLE IF EXISTS coordinadorvotes, viajesposts, viajesreservados, coordinadorviajes, viajes, users CASCADE;
-        `);
+        
+        // Desactivar restricciones de claves foráneas
+        await pool.query('SET FOREIGN_KEY_CHECKS=0;');
+        
+        // Eliminar todas las tablas
+        await pool.query('DROP TABLE IF EXISTS coordinadorvotes;');
+        await pool.query('DROP TABLE IF EXISTS viajesposts;');
+        await pool.query('DROP TABLE IF EXISTS viajesphotos;');
+        await pool.query('DROP TABLE IF EXISTS viajesreservados;');
+        await pool.query('DROP TABLE IF EXISTS coordinadorviajes;');
+        await pool.query('DROP TABLE IF EXISTS viajes;');
+        await pool.query('DROP TABLE IF EXISTS users;');
+        
+        // Reactivar restricciones de claves foráneas
+        await pool.query('SET FOREIGN_KEY_CHECKS=1;');
 
         console.log('Creating tables...');
 
@@ -39,7 +51,7 @@ const createTables = async () => {
         `);
 
         await pool.query(
-            `INSERT INTO users (id, email, username, password, role, active) VALUES ($1, $2, $3, $4, $5, $6)`,
+            `INSERT INTO users (id, email, username, password, role, active) VALUES (?, ?, ?, ?, ?, ?)`,
             [id, ADMIN_EMAIL, ADMIN_USERNAME, hashedPass, ADMIN_ROLE, true]
         );
 
@@ -84,6 +96,16 @@ const createTables = async () => {
                 viajeId VARCHAR(100) NOT NULL,
                 FOREIGN KEY (userId) REFERENCES users(id),
                 FOREIGN KEY (viajeId) REFERENCES viajes(id)
+            );
+        `);
+
+        await pool.query(`
+            CREATE TABLE IF NOT EXISTS viajesphotos (
+                id SERIAL PRIMARY KEY,
+                photo VARCHAR(100) NOT NULL,
+                viajeId VARCHAR(100) NOT NULL,
+                FOREIGN KEY (viajeId) REFERENCES viajes(id),
+                createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             );
         `);
 

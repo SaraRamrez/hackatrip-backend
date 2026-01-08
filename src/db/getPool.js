@@ -1,21 +1,22 @@
 // src/db/getPool.js
 
-import pkg from 'pg';
+import mysql from 'mysql2/promise';
 import dotenv from 'dotenv';
 
 dotenv.config();
-
-const { Pool } = pkg;
 
 let pool;
 
 const getPool = () => {
   if (!pool) {
-    pool = new Pool({
-      connectionString: process.env.DATABASE_URL,
-      ssl: {
-        rejectUnauthorized: false, // necesario para Render
-      },
+    pool = mysql.createPool({
+      host: process.env.MYSQL_HOST,
+      user: process.env.MYSQL_USER,
+      password: process.env.MYSQL_PASS,
+      database: process.env.MYSQL_DB,
+      waitForConnections: true,
+      connectionLimit: 10,
+      queueLimit: 0,
     });
   }
 

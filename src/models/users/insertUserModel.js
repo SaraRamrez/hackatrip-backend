@@ -41,7 +41,7 @@ const insertUserModel = async (
     
             Gracias por registrarte en la web. Para activar tu cuenta, haz clic en el siguiente link:
     
-            <a href="${CLIENT_URL}users/validate/${registrationCode}">Activar mi cuenta</a>
+            <a href="${CLIENT_URL}/users/validate/${registrationCode}">Activar mi cuenta</a>
         `;
 
     await sendMailUtil(email, emailSubject, emailBody);

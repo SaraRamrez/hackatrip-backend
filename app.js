@@ -32,6 +32,9 @@ const __dirname = path.dirname(__filename);
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Servir archivos subidos (avatars, fotos) desde la carpeta indicada en .env
+app.use(express.static(path.join(__dirname, UPLOADS_DIR)));
+
 app.use(cors());
 
 app.use(morgan('dev'));
